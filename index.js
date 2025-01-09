@@ -1,44 +1,33 @@
 /*
-Write a function, uncompress, that takes in a string as an argument. The input string will be formatted into multiple groups according to the following pattern:
+compress
+Write a function, compress, that takes in a string as an argument. The function should return a compressed version of the string where consecutive occurrences of the same characters are compressed into the number of occurrences followed by the character. Single character occurrences should not be changed.
 
-<number><char>
-
-for example, '2c' or '3a'.
-The function should return an uncompressed version of the string where each 'char' of a group is repeated 'number' times consecutively. You may assume that the input string is well-formed according to the previously mentioned pattern.
+'aaa' compresses to '3a'
+'cc' compresses to '2c'
+'t' should remain as 't'
+You can assume that the input only contains alphabetic characters.
 */
 
-// o(n * m) S/T
+//* o(n) s/t
 
-const uncompress = (s) => {
+const compress = (s) => {
   // todo
-  // establish numbers
-  // set pointers
-  // determine return value
-
-  //             i
-  // uncompress("2c3a1t"); // -> 'ccaaat'
-  //              j
-
-  let number = "0123456789";
-
+  let result = [];
   let i = 0;
   let j = 0;
 
-  let result = "";
-
   while (i < s.length) {
-    if (number.includes(s[j])) {
+    if (s[i] === s[j]) {
       j++;
     } else {
-      let num = Number(s.slice(i, j));
-      for (let i = 0; i < num; i++) {
-        console.log(result);
-        result += s[j];
+      let num = j - i;
+      if (num < 2) {
+        result.push(s[i]);
+      } else {
+        result.push(num, s[i]);
       }
-      j++;
       i = j;
     }
   }
-
-  return result;
+  return result.join("");
 };
